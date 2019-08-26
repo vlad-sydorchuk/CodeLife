@@ -22,15 +22,6 @@ namespace CodeLife.Controllers
         // GET: ProjectTasks
         public async Task<IActionResult> Index()
         {
-            var statusList = Enum.GetValues(typeof(ProjectTaskStatus))
-                .Cast<ProjectTaskStatus>()
-                .Select(x => new ProjectTaskStatusAccess
-                {
-                    Id = ((int)x),
-                    Name = x.ToString()
-                });
-            ViewBag.StatusList = statusList;
-
             var applicationDbContext = _context.Tasks.Include(p => p.Developer).Include(p => p.Project).Include(p => p.Reviwer).Include(p => p.Tester);
             return View(await applicationDbContext.ToListAsync());
         }
@@ -61,9 +52,15 @@ namespace CodeLife.Controllers
         public IActionResult Create()
         {
             ViewData["DeveloperId"] = new SelectList(_context.Users, "Id", "Id");
-            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Id");
+            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name");
             ViewData["ReviwerId"] = new SelectList(_context.Users, "Id", "Id");
             ViewData["TesterId"] = new SelectList(_context.Users, "Id", "Id");
+
+            var taskStatuses = Enum.GetValues(typeof(ProjectTaskStatus)).Cast<ProjectTaskStatus>().Select(
+                x => new { Id = ((int)x), Name = x.ToString() }).ToList();
+
+            ViewData["StatusId"] = new SelectList(taskStatuses, "Id", "Name", new ProjectTask().Status);
+
             return View();
         }
 
@@ -81,9 +78,15 @@ namespace CodeLife.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DeveloperId"] = new SelectList(_context.Users, "Id", "Id", projectTask.DeveloperId);
-            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Id", projectTask.ProjectId);
+            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name", projectTask.ProjectId);
             ViewData["ReviwerId"] = new SelectList(_context.Users, "Id", "Id", projectTask.ReviwerId);
             ViewData["TesterId"] = new SelectList(_context.Users, "Id", "Id", projectTask.TesterId);
+
+            var taskStatuses = Enum.GetValues(typeof(ProjectTaskStatus)).Cast<ProjectTaskStatus>().Select(
+                x => new { Id = ((int)x), Name = x.ToString() }).ToList();
+
+            ViewData["StatusId"] = new SelectList(taskStatuses, "Id", "Name", new ProjectTask().Status);
+
             return View(projectTask);
         }
 
@@ -101,9 +104,15 @@ namespace CodeLife.Controllers
                 return NotFound();
             }
             ViewData["DeveloperId"] = new SelectList(_context.Users, "Id", "Id", projectTask.DeveloperId);
-            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Id", projectTask.ProjectId);
+            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name", projectTask.ProjectId);
             ViewData["ReviwerId"] = new SelectList(_context.Users, "Id", "Id", projectTask.ReviwerId);
             ViewData["TesterId"] = new SelectList(_context.Users, "Id", "Id", projectTask.TesterId);
+
+            var taskStatuses = Enum.GetValues(typeof(ProjectTaskStatus)).Cast<ProjectTaskStatus>().Select(
+                x => new { Id = ((int)x), Name = x.ToString() }).ToList();
+
+            ViewData["StatusId"] = new SelectList(taskStatuses, "Id", "Name", new ProjectTask().Status);
+
             return View(projectTask);
         }
 
@@ -140,9 +149,15 @@ namespace CodeLife.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DeveloperId"] = new SelectList(_context.Users, "Id", "Id", projectTask.DeveloperId);
-            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Id", projectTask.ProjectId);
+            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name", projectTask.ProjectId);
             ViewData["ReviwerId"] = new SelectList(_context.Users, "Id", "Id", projectTask.ReviwerId);
             ViewData["TesterId"] = new SelectList(_context.Users, "Id", "Id", projectTask.TesterId);
+
+            var taskStatuses = Enum.GetValues(typeof(ProjectTaskStatus)).Cast<ProjectTaskStatus>().Select(
+                x => new { Id = ((int)x), Name = x.ToString() }).ToList();
+
+            ViewData["StatusId"] = new SelectList(taskStatuses, "Id", "Name", new ProjectTask().Status);
+
             return View(projectTask);
         }
 

@@ -39,17 +39,11 @@ namespace CodeLife.Model
 
     public enum ProjectTaskStatus
     {
-        Draft = 1,
-        Backlog = 2,
-        InDevelopment = 3,
-        InCodeReview = 4,
-        InVerification = 5,
-        Done = 6
+        Draft,
+        Backlog,
+        InDevelopment,
+        InCodeReview,
+        InVerification,
+        Done
     }
-
-    //public class ProjectTaskStatusAccess
-    //{
-    //    public int Id { get; set; }
-    //    public string Name { get; set; }
-    //}
 }
