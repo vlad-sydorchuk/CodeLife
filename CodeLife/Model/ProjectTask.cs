@@ -35,16 +35,6 @@ namespace CodeLife.Model
         public ApplicationUser Reviwer { get; set; }
 
         public ProjectTaskStatus Status { get; set; }
-
-        //public SelectList ProjectTaskStatuses { get; set; }
-
-        public ProjectTask()
-        {
-
-            //ProjectTaskStatuses = (SelectList)(Enum.GetValues(typeof(ProjectTaskStatus)).Cast<ProjectTaskStatus>().Select(e => new { Value = e.ToString(), Text = e.ToString() }).ToList()
-
-            //return new SelectList(enumValues, "Value", "Text", "");
-        }
     }
 
     public enum ProjectTaskStatus
@@ -57,9 +47,9 @@ namespace CodeLife.Model
         Done = 6
     }
 
-    public class ProjectTaskStatusAccess
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
+    //public class ProjectTaskStatusAccess
+    //{
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+    //}
 }
